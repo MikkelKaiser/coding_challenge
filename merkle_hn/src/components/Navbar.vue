@@ -8,18 +8,17 @@
             </div>
 
             <ul v-show="!mobile" class="navigation">
-                <li><router-link class="link" :to="{name: ''}">Home</router-link></li>
-                <li><router-link class="link" :to="{name: ''}">About</router-link></li>
-                <li><router-link class="link" :to="{name: ''}">Contact</router-link></li>
+                <li><router-link class="link" to="/">Home</router-link></li>
+                <li><router-link class="link" to="/about">About</router-link></li>
+
             </ul>
             <div class="icon">
                 <i @click="toggleMobileNav" v-show="mobile" class="far fa-bars" :class="{'icon-active': mobileNav}"></i>
             </div>
             <transition name="mobile-nav">
                 <ul v-show="mobileNav" class="dropdown-nav">
-                    <li><router-link class="link" :to="{name: ''}">Home</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">About</router-link></li>
-                    <li><router-link class="link" :to="{name: ''}">Contact</router-link></li>
+                    <li><router-link class="link" to="/">Home</router-link></li>
+                    <li><router-link class="link" to="/about">About</router-link></li>
                 </ul>
             </transition>
         </nav>
