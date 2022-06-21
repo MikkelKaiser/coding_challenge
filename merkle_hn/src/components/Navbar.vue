@@ -1,7 +1,7 @@
 <!-- Template -->
 
 <template>
-    <header :class="{'scolled-nav': scrollPosition }">
+    <header :class="{'scolled-nav': scrolledNav }">
         <nav>
             <div class="branding">
                 <img src="@/assets/merkle_logo.png" alt="">
@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             // Classes to set when menu enters mobile view
-            scrollPosition: null,
+            scrolledNav: null,
             mobile: null,
             mobileNav: null,
             windowWidth: null,
@@ -46,11 +46,26 @@ export default {
         // Run check on screen size right as app is run.
         this.checkScreen();
     },
+    mounted() {
+        // Change menu when scrolled down on the page
+        window.addEventListener('scroll', this.updateScroll)
+    },
     methods: {
         // Methods for nav
         toggleMobileNav() {
             this.mobileNav = !this.mobileNav;
         },
+
+        updateScroll(){
+            const scrollPosition = window.scrollY;
+
+            if (scrollPosition > 50) {
+                this.scrolledNav = true;
+                return;
+            }
+            this.scrolledNav = false;
+        },
+
         checkScreen() {
             this.windowWidth = window.innerWidth;
             if (this.windowWidth <= 750) {
@@ -169,6 +184,36 @@ export default {
                     .link {
                         color: #000;
                     }
+                }
+            }
+
+            .mobile-nav-enter-active,
+            .mobile-nav-leave-active {
+                transition: 1s ease all;
+            }
+
+            .mobile-nav-enter-from,
+            .mobile-nav-leave-to  {
+                transform: translateX(-300px);
+            }
+
+            .mobile-nav-enter-to {
+                transform: translateX(0);
+            }
+        }
+    }
+
+    .scolled-nav {
+        background-color: #000;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        nav {
+            padding: 8px 0;
+            min-height: 100px;
+            .branding {
+                img {
+                    width: 190px;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
                 }
             }
         }
