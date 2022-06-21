@@ -33,11 +33,34 @@ export default {
     name: 'NavMenu',
     data() {
         return {
+            // Classes to set when menu enters mobile view
             scrollPosition: null,
-            mobile: true,
+            mobile: null,
             mobileNav: null,
             windowWidth: null,
         };
+    },
+    created() {
+        // Listen for window resize and detect window size
+        window.addEventListener('resize', this.checkScreen);
+        // Run check on screen size right as app is run.
+        this.checkScreen();
+    },
+    methods: {
+        // Methods for nav
+        toggleMobileNav() {
+            this.mobileNav = !this.mobileNav;
+        },
+        checkScreen() {
+            this.windowWidth = window.innerWidth;
+            if (this.windowWidth <= 750) {
+                this.mobile = true;
+                return;
+            }
+            this.mobile = false;
+            this.mobileNav = false;
+            return;
+        },
     },
 };
 </script>
@@ -50,16 +73,18 @@ export default {
         z-index: 99;
         width: 100%;
         position: fixed;
-        transition: .5s ease all;
+        transition: 0.5s ease all;
         color: white;
 
         nav{
+            position: relative;
             display: flex;
             flex-direction: row;
             padding: 12px 0px;
             transition: .5s ease all;
             width: 90%;
-            margin: 0 auto;
+            margin: 0px auto;
+            min-height: 106px;
 
             @media(min-width: 1140px) {
                 max-width: 1140px;
@@ -96,8 +121,54 @@ export default {
                 display: flex;
                 align-items: center;
                 img {
-                    width:50px;
-                    transition: .5s ease all;
+                    width:200px;
+                    transition: 0.5s ease all;
+                }
+            }
+
+            .navigation {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                justify-content: flex-end;
+            }
+
+            .icon {
+                display: flex;
+                position: absolute;
+                top:0;
+                align-items: center;
+                right: 24px;
+                height: 100%;
+
+                i {
+                    cursor: pointer;
+                    font-size: 24px;
+                    transition: 0.8s ease all;
+                }
+            }
+
+            .icon-active {
+                transform: rotate(180deg);
+            }
+
+            .dropdown-nav {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                width: 100%;
+                max-width: 250px;
+                height: 100%;
+                background-color: #fff;
+                top:0;
+                left: 0;
+                margin-top: 0;
+
+                li {
+                    margin-left: 0;
+                    .link {
+                        color: #000;
+                    }
                 }
             }
         }
