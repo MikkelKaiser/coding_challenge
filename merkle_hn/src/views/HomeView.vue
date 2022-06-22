@@ -96,7 +96,7 @@ export default {
   computed: {
     sortedArray: function () {
       // return this.stories.slice(0).sort((a, b) => b.data.score - a.data.score);
-       return  [...this.stories].sort((a, b) => b.data.score - a.data.score);
+       return  [...this.stories].sort((a, b) => a.data.score - b.data.score);
     }
   },
 
