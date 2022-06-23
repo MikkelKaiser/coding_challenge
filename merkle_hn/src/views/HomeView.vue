@@ -7,19 +7,18 @@
             <div class="story-text-wrap">
               <h2 class="bg-text">{{ story.data.title }}</h2>
             </div>
-            <img src="../assets/green-shoe.png" class="image" alt="">
+            <img src="../assets/merkle_logo.png" class="image" alt="">
           </div>
           <div class="story-detail">
+
             <h2>{{ story.data.title }}</h2>
+            <p>Author: {{ story.data.by }}</p>
             <p>Url: {{ story.data.url }}</p>
             <p>Time: {{ story.data.time }}</p>
             <p>Score: {{ story.data.score }}</p>
+
           </div>
         </div>
-        <!-- <h2>{{story.data.title}}</h2>
-    <p>Url: {{story.data.url}}</p>
-    <p>Comments: {{story.data.descendants}}</p>
-    <p>Score: {{story.data.score}}</p> -->
       </div>
     </div>
   </section>
@@ -39,7 +38,6 @@ export default {
   },
   created: function () {
     // Make request to the API
-    // https://hacker-news.firebaseio.com/v0/topstories.json
     axios.get('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then((response) => {
         // Get the 10 first stories response and populate it to the stories array
@@ -47,8 +45,15 @@ export default {
         results.forEach(id => {
           axios.get('https://hacker-news.firebaseio.com/v0/item/' + id + '.json')
             .then((response) => {
-              // console.log(typeof this.stories)
               this.stories.push(response);
+              // let newStory = Object.assign(this.stories, {story: response.data}) 
+              let authorId = response.data.by;
+              axios.get('https://hacker-news.firebaseio.com/v0/user/' + authorId + '.json')
+                .then((response) => {
+                  // newStory = Object.assign(this.stories, {author: response.data}) 
+                  console.log(response)
+                })
+
             })
             .catch((err) => {
               this.err = err;
@@ -95,8 +100,7 @@ export default {
 
   computed: {
     sortedArray: function () {
-      // return this.stories.slice(0).sort((a, b) => b.data.score - a.data.score);
-       return  [...this.stories].sort((a, b) => a.data.score - b.data.score);
+      return [...this.stories].sort((a, b) => a.data.score - b.data.score);
     }
   },
 
