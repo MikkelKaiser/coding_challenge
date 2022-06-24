@@ -1,4 +1,5 @@
 # merkle_hn
+Go to folder -> merkle_hn and run commands below
 
 ## Project setup
 ```
@@ -17,7 +18,7 @@ yarn build
 
 
 ```
- Beklager meget den stand denne er blevet afleveret i, jeg er stadig på mit nuværende arbejde så tiden jeg har kunne ligge i denne var minimal
+ Very sorry about the state this was delivered in, i am not satisfied at all. I am still working my current job, so the time i could spend making this was minimal.
  
 ```
 
